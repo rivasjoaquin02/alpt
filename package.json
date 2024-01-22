@@ -1,0 +1,27 @@
+{
+  "name": "alpt",
+  "module": "app.ts",
+  "type": "module",
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@types/bun": "latest",
+    "@types/pg": "^8.10.9",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "add": "^2.0.6",
+    "drizzle-kit": "^0.20.13",
+    "eslint": "^8.56.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.3",
+    "eslint-plugin-drizzle": "^0.2.3",
+    "pg": "^8.11.3",
+    "pg-copy-streams": "^6.0.6",
+    "postgres": "^3.4.3",
+    "zod": "^3.22.4"
+  }
+}

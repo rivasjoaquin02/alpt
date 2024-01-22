@@ -1,0 +1,1985 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "email_collection": {
+      "name": "email_collection",
+      "schema": "",
+      "columns": {
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_collection": {
+          "name": "id_collection",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_email": {
+          "name": "fk_email",
+          "tableFrom": "email_collection",
+          "tableTo": "email",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "email"
+          ],
+          "columnsTo": [
+            "email"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_collection": {
+          "name": "fk_collection",
+          "tableFrom": "email_collection",
+          "tableTo": "collection",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_collection"
+          ],
+          "columnsTo": [
+            "id_collection"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "library": {
+      "name": "library",
+      "schema": "",
+      "columns": {
+        "id_library": {
+          "name": "id_library",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name_library": {
+          "name": "name_library",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "location_library": {
+          "name": "location_library",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description_library": {
+          "name": "description_library",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "website": {
+          "name": "website",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "library_name_library_key": {
+          "columns": [
+            "name_library"
+          ],
+          "nullsNotDistinct": false,
+          "name": "library_name_library_key"
+        }
+      }
+    },
+    "room": {
+      "name": "room",
+      "schema": "",
+      "columns": {
+        "id_room": {
+          "name": "id_room",
+          "type": "varchar(20)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_library": {
+          "name": "id_library",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name_room": {
+          "name": "name_room",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "location_room": {
+          "name": "location_room",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description_room": {
+          "name": "description_room",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_method": {
+          "name": "access_method",
+          "type": "access_method_type",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone_extension": {
+          "name": "phone_extension",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_library": {
+          "name": "fk_library",
+          "tableFrom": "room",
+          "tableTo": "library",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_library"
+          ],
+          "columnsTo": [
+            "id_library"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "room_name_room_key": {
+          "columns": [
+            "name_room"
+          ],
+          "nullsNotDistinct": false,
+          "name": "room_name_room_key"
+        }
+      }
+    },
+    "collection": {
+      "name": "collection",
+      "schema": "",
+      "columns": {
+        "id_collection": {
+          "name": "id_collection",
+          "type": "varchar(10)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_room": {
+          "name": "id_room",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name_collection": {
+          "name": "name_collection",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description_collection": {
+          "name": "description_collection",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type_collection": {
+          "name": "type_collection",
+          "type": "collection_type",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'general'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_room": {
+          "name": "fk_room",
+          "tableFrom": "collection",
+          "tableTo": "room",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_room"
+          ],
+          "columnsTo": [
+            "id_room"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "collection_name_collection_key": {
+          "columns": [
+            "name_collection"
+          ],
+          "nullsNotDistinct": false,
+          "name": "collection_name_collection_key"
+        }
+      }
+    },
+    "email": {
+      "name": "email",
+      "schema": "",
+      "columns": {
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "description_email": {
+          "name": "description_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "phone": {
+      "name": "phone",
+      "schema": "",
+      "columns": {
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(20)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "description_phone": {
+          "name": "description_phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "phone_library": {
+      "name": "phone_library",
+      "schema": "",
+      "columns": {
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(20)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_library": {
+          "name": "id_library",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_library": {
+          "name": "fk_library",
+          "tableFrom": "phone_library",
+          "tableTo": "library",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_library"
+          ],
+          "columnsTo": [
+            "id_library"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_phone": {
+          "name": "fk_phone",
+          "tableFrom": "phone_library",
+          "tableTo": "phone",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "phone_number"
+          ],
+          "columnsTo": [
+            "phone_number"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "phone_room": {
+      "name": "phone_room",
+      "schema": "",
+      "columns": {
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(20)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_room": {
+          "name": "id_room",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_room": {
+          "name": "fk_room",
+          "tableFrom": "phone_room",
+          "tableTo": "room",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_room"
+          ],
+          "columnsTo": [
+            "id_room"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_phone": {
+          "name": "fk_phone",
+          "tableFrom": "phone_room",
+          "tableTo": "phone",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "phone_number"
+          ],
+          "columnsTo": [
+            "phone_number"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "email_library": {
+      "name": "email_library",
+      "schema": "",
+      "columns": {
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_library": {
+          "name": "id_library",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_library": {
+          "name": "fk_library",
+          "tableFrom": "email_library",
+          "tableTo": "library",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_library"
+          ],
+          "columnsTo": [
+            "id_library"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_email": {
+          "name": "fk_email",
+          "tableFrom": "email_library",
+          "tableTo": "email",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "email"
+          ],
+          "columnsTo": [
+            "email"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "email_room": {
+      "name": "email_room",
+      "schema": "",
+      "columns": {
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_room": {
+          "name": "id_room",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_room": {
+          "name": "fk_room",
+          "tableFrom": "email_room",
+          "tableTo": "room",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_room"
+          ],
+          "columnsTo": [
+            "id_room"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_email": {
+          "name": "fk_email",
+          "tableFrom": "email_room",
+          "tableTo": "email",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "email"
+          ],
+          "columnsTo": [
+            "email"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "member": {
+      "name": "member",
+      "schema": "",
+      "columns": {
+        "id_member": {
+          "name": "id_member",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "age": {
+          "name": "age",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "country": {
+          "name": "country",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "category_type",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "researcher": {
+      "name": "researcher",
+      "schema": "",
+      "columns": {
+        "id_member": {
+          "name": "id_member",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_member": {
+          "name": "fk_member",
+          "tableFrom": "researcher",
+          "tableTo": "member",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_member"
+          ],
+          "columnsTo": [
+            "id_member"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "professional": {
+      "name": "professional",
+      "schema": "",
+      "columns": {
+        "id_member": {
+          "name": "id_member",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "organization": {
+          "name": "organization",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_member": {
+          "name": "fk_member",
+          "tableFrom": "professional",
+          "tableTo": "member",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_member"
+          ],
+          "columnsTo": [
+            "id_member"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "student": {
+      "name": "student",
+      "schema": "",
+      "columns": {
+        "id_member": {
+          "name": "id_member",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "school": {
+          "name": "school",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_member": {
+          "name": "fk_member",
+          "tableFrom": "student",
+          "tableTo": "member",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_member"
+          ],
+          "columnsTo": [
+            "id_member"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "document": {
+      "name": "document",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "editorial": {
+          "name": "editorial",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publication_place": {
+          "name": "publication_place",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "language": {
+          "name": "language",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "format": {
+          "name": "format",
+          "type": "format_type",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subject": {
+          "name": "subject",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_patrimony": {
+          "name": "is_patrimony",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type_document": {
+          "name": "type_document",
+          "type": "document_type",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "manuscript": {
+      "name": "manuscript",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "period": {
+          "name": "period",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "manuscript",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "map": {
+      "name": "map",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "dimension_height": {
+          "name": "dimension_height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dimension_width": {
+          "name": "dimension_width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scale": {
+          "name": "scale",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type_map": {
+          "name": "type_map",
+          "type": "map_type",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "map",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "picture": {
+      "name": "picture",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "dimension_height": {
+          "name": "dimension_height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dimension_width": {
+          "name": "dimension_width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "picture",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "paint": {
+      "name": "paint",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "technique": {
+          "name": "technique",
+          "type": "technique_type",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dimension_height": {
+          "name": "dimension_height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dimension_width": {
+          "name": "dimension_width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "paint",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "media": {
+      "name": "media",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "genre": {
+          "name": "genre",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "director": {
+          "name": "director",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "producer": {
+          "name": "producer",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "media",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "music": {
+      "name": "music",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "genre": {
+          "name": "genre",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "performer": {
+          "name": "performer",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "composer": {
+          "name": "composer",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "music",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "reference": {
+      "name": "reference",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "serial": {
+          "name": "serial",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "reference",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "magazine": {
+      "name": "magazine",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "editor": {
+          "name": "editor",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "issn": {
+          "name": "issn",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "magazine",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "book": {
+      "name": "book",
+      "schema": "",
+      "columns": {
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "genre": {
+          "name": "genre",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "issn": {
+          "name": "issn",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isbn": {
+          "name": "isbn",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dewey": {
+          "name": "dewey",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "book",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "author": {
+      "name": "author",
+      "schema": "",
+      "columns": {
+        "id_author": {
+          "name": "id_author",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name_author": {
+          "name": "name_author",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country_author": {
+          "name": "country_author",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description_author": {
+          "name": "description_author",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "service": {
+      "name": "service",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "description_service": {
+          "name": "description_service",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type_service": {
+          "name": "type_service",
+          "type": "service_type",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "fine": {
+      "name": "fine",
+      "schema": "",
+      "columns": {
+        "id_fine": {
+          "name": "id_fine",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "penalty": {
+          "name": "penalty",
+          "type": "penalty_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fee": {
+          "name": "fee",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "fine",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "document_collection": {
+      "name": "document_collection",
+      "schema": "",
+      "columns": {
+        "id_collection": {
+          "name": "id_collection",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_collection": {
+          "name": "fk_collection",
+          "tableFrom": "document_collection",
+          "tableTo": "collection",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_collection"
+          ],
+          "columnsTo": [
+            "id_collection"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "document_collection",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "document_collection_pkey": {
+          "name": "document_collection_pkey",
+          "columns": [
+            "id_collection",
+            "id_document"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "service_room": {
+      "name": "service_room",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_room": {
+          "name": "id_room",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_room": {
+          "name": "fk_room",
+          "tableFrom": "service_room",
+          "tableTo": "room",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_room"
+          ],
+          "columnsTo": [
+            "id_room"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "service_room",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "service_room_pkey": {
+          "name": "service_room_pkey",
+          "columns": [
+            "id_service",
+            "id_room"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "author_document": {
+      "name": "author_document",
+      "schema": "",
+      "columns": {
+        "id_author": {
+          "name": "id_author",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "author_document",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_author": {
+          "name": "fk_author",
+          "tableFrom": "author_document",
+          "tableTo": "author",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_author"
+          ],
+          "columnsTo": [
+            "id_author"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "author_document_pkey": {
+          "name": "author_document_pkey",
+          "columns": [
+            "id_author",
+            "id_document"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "service_member": {
+      "name": "service_member",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_member": {
+          "name": "id_member",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_member": {
+          "name": "fk_member",
+          "tableFrom": "service_member",
+          "tableTo": "member",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_member"
+          ],
+          "columnsTo": [
+            "id_member"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "service_member",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "service_member_pkey": {
+          "name": "service_member_pkey",
+          "columns": [
+            "id_service",
+            "id_member"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "loan_researcher": {
+      "name": "loan_researcher",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_member": {
+          "name": "id_member",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_member": {
+          "name": "fk_member",
+          "tableFrom": "loan_researcher",
+          "tableTo": "member",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_member"
+          ],
+          "columnsTo": [
+            "id_member"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "loan_researcher",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "loan_researcher",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "loan_researcher_pkey": {
+          "name": "loan_researcher_pkey",
+          "columns": [
+            "id_service",
+            "id_document",
+            "id_member"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "loan_professional": {
+      "name": "loan_professional",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_member": {
+          "name": "id_member",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_member": {
+          "name": "fk_member",
+          "tableFrom": "loan_professional",
+          "tableTo": "member",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_member"
+          ],
+          "columnsTo": [
+            "id_member"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "loan_professional",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "loan_professional",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "loan_professional_pkey": {
+          "name": "loan_professional_pkey",
+          "columns": [
+            "id_service",
+            "id_document",
+            "id_member"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "loan_library": {
+      "name": "loan_library",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_library": {
+          "name": "id_library",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_library2": {
+          "name": "id_library2",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_library": {
+          "name": "fk_library",
+          "tableFrom": "loan_library",
+          "tableTo": "library",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_library"
+          ],
+          "columnsTo": [
+            "id_library"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "loan_library",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "loan_library",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_library2": {
+          "name": "fk_library2",
+          "tableFrom": "loan_library",
+          "tableTo": "library",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_library2"
+          ],
+          "columnsTo": [
+            "id_library"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "loan_library_pkey": {
+          "name": "loan_library_pkey",
+          "columns": [
+            "id_service",
+            "id_document",
+            "id_library",
+            "id_library2"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "loan": {
+      "name": "loan",
+      "schema": "",
+      "columns": {
+        "id_service": {
+          "name": "id_service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_document": {
+          "name": "id_document",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "term": {
+          "name": "term",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_date": {
+          "name": "end_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "status_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type_loan": {
+          "name": "type_loan",
+          "type": "loan_type",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fk_document": {
+          "name": "fk_document",
+          "tableFrom": "loan",
+          "tableTo": "document",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fk_service": {
+          "name": "fk_service",
+          "tableFrom": "loan",
+          "tableTo": "loan",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "id_service",
+            "id_document"
+          ],
+          "columnsTo": [
+            "id_service",
+            "id_document"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "loan_pkey": {
+          "name": "loan_pkey",
+          "columns": [
+            "id_service",
+            "id_document"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "access_method_type": {
+      "name": "access_method_type",
+      "values": {
+        "member card": "member card",
+        "provisional pass": "provisional pass"
+      }
+    },
+    "format_type": {
+      "name": "format_type",
+      "values": {
+        "physical": "physical",
+        "digital": "digital"
+      }
+    },
+    "document_type": {
+      "name": "document_type",
+      "values": {
+        "art": "art",
+        "manuscript": "manuscript",
+        "ethnology": "ethnology",
+        "file": "file",
+        "map": "map",
+        "picture": "picture",
+        "poster": "poster",
+        "media": "media",
+        "music": "music",
+        "reference": "reference",
+        "magazine": "magazine",
+        "book": "book"
+      }
+    },
+    "service_type": {
+      "name": "service_type",
+      "values": {
+        "loan": "loan",
+        "heritage preservation": "heritage preservation",
+        "cultural event": "cultural event",
+        "consultation in a room": "consultation in a room",
+        "bibliographic references": "bibliographic references"
+      }
+    },
+    "status_type": {
+      "name": "status_type",
+      "values": {
+        "requested": "requested",
+        "approved": "approved",
+        "in-loan": "in-loan",
+        "renovated": "renovated",
+        "returned": "returned",
+        "non-returned": "non-returned",
+        "lost": "lost"
+      }
+    },
+    "loan_type": {
+      "name": "loan_type",
+      "values": {
+        "loan_member": "loan_member",
+        "loan_library": "loan_library"
+      }
+    },
+    "penalty_type": {
+      "name": "penalty_type",
+      "values": {
+        "late fees": "late fees",
+        "suspension of borrowing privileges": "suspension of borrowing privileges",
+        "replacement cost": "replacement cost",
+        "processing fee": "processing fee"
+      }
+    },
+    "category_type": {
+      "name": "category_type",
+      "values": {
+        "researcher": "researcher",
+        "professional": "professional",
+        "student": "student",
+        "foreign": "foreign"
+      }
+    },
+    "collection_type": {
+      "name": "collection_type",
+      "values": {
+        "special": "special",
+        "general": "general"
+      }
+    },
+    "map_type": {
+      "name": "map_type",
+      "values": {
+        "topographic": "topographic",
+        "road": "road",
+        "thematic": "thematic",
+        "geologic": "geologic",
+        "political": "political",
+        "physical": "physical"
+      }
+    },
+    "technique_type": {
+      "name": "technique_type",
+      "values": {
+        "oil": "oil",
+        "acrylic": "acrylic",
+        "watercolor": "watercolor",
+        "pastel": "pastel",
+        "encaustic": "encaustic",
+        "fresco": "fresco",
+        "gouache": "gouache",
+        "ink wash": "ink wash",
+        "spray": "spray"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
