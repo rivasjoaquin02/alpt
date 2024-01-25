@@ -39,31 +39,12 @@ export class Table<T, E = void> {
         const values = await this.generateValues(amount)
         console.log(`⌛: Time Generating ${amount} values: ${performance.now() - tick}ms`)
 
-        if (values && values[0]) {
-            console.log(values)
-            const tableName = getTableName(this.table)
-            const file = Bun.file(`${tableName}.csv`, { type: "csv" })
-            const writer = file.writer()
-
-            const header = Object.keys(values[0]).join(",") + '\n'
-            writer.write(header)
-
-            for (let i = 0; i < values.length; i++) {
-                const line = Object.values(values[i]).join(",") + '\n'
-                writer.write(line)
-            }
-            writer.end()
-
-            // ingest data using sql's COPY
-            const ingestStream = client.query(from(`COPY ${tableName} FROM STDIN WITH DELIMITER ',' CSV HEADER; `))
-            const sourceStream = file.stream()
-            await pipeline(sourceStream, ingestStream)
-        }
+        //await this.saveValues(values)
+        // 100 -> 1m
     }
 
     async generateValue(): Promise<T> {
         const deps = this.getDependencies()
-
         return this.generatorFn({ faker, deps })
     }
 
@@ -75,7 +56,10 @@ export class Table<T, E = void> {
                 const worker = new Worker("./src/lib/table-worker.ts", {
                     workerData: { table }
                 })
-                worker.once("message", resolve)
+                worker.once("message", (v) => {
+                    console.count()
+                    resolve(v)
+                })
                 worker.once("error", reject)
                 worker.on("exit", (code) => {
                     if (code !== 0)
@@ -94,6 +78,28 @@ export class Table<T, E = void> {
         }
 
         return fulfilled.map(({ value }) => value)
+    }
+
+    private async saveValues(values: T[]): Promise<void> {
+        if (!values || !values[0]) return
+
+        const tableName = getTableName(this.table)
+        const file = Bun.file(`${tableName}.csv`, { type: "csv" })
+        const writer = file.writer()
+
+        const header = Object.keys(values[0]).join(",") + '\n'
+        writer.write(header)
+
+        for (let i = 0; i < values.length; i++) {
+            const line = Object.values(values[i]).join(",") + '\n'
+            writer.write(line)
+        }
+        writer.end()
+
+        // ingest data using sql's COPY
+        const ingestStream = client.query(from(`COPY ${tableName} FROM STDIN WITH DELIMITER ',' CSV HEADER; `))
+        const sourceStream = file.stream()
+        await pipeline(sourceStream, ingestStream)
     }
 }
 
