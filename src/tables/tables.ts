@@ -1,26 +1,21 @@
-import { PgTable } from "drizzle-orm/pg-core";
-import { email, emailLibrary, library } from "../../drizzle/schema";
 import { Table, TableBuilder } from "../lib/table";
 import { getTableName } from "drizzle-orm";
+import { email, emailLibrary } from "../../drizzle/schema";
 
-type Library = typeof library.$inferInsert
 type Email = typeof email.$inferInsert
 type EmailLibrary = typeof emailLibrary.$inferInsert
 
+const errors: Record<string, number> = {}
+const onError = (e: Error) => {
+    const { message } = e
+
+    errors[message] = errors[message]
+        ? errors[message] + 1
+        : errors[message] = 1
+}
 export const idxs = new Map<string, (string | number)[]>()
 
 export const tables = new Map<string, Table>([
-    [
-        "library",
-        new TableBuilder<Library>(library)
-            .withGenerator(async ({ faker }) => ({
-                nameLibrary: faker.helpers.fake(`Library {{person.fullName()}}`),
-                locationLibrary: faker.location.streetAddress(true),
-                descriptionLibrary: faker.lorem.paragraph(),
-                website: faker.internet.url()
-            }))
-            .build()
-    ],
     [
         "email",
         new TableBuilder<Email>(email)
@@ -45,6 +40,10 @@ export const tables = new Map<string, Table>([
             .build()
     ]
 ])
+
+
+tables.set("library", libraryTable)
+
 
 
 
